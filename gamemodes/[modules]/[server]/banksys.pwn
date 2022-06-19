@@ -5,7 +5,7 @@
 #include <ysilib\YSI_Coding\y_hooks>
 #include <streamer>
 
-//* Dodati kredit i hipoteku i sistem gotov!
+//@NOTE: Dodati kredit i hipoteku i sistem gotov!
 
 //?=============================== Chekpointi =========================================//
 //!Chekpointi za banku
@@ -14,8 +14,9 @@ new CP_UlazuBanku, CP_IzlazizBanke, CP_3Sprat, CP_15Sprat, CP_19Sprat;
 //!3D text labeli
 new Text3D:Text_Banka;
 
+//@NOTE: Uvesti invalid vrednost za iBankovniRacun i cuvati tip racuna umesto true/false?
 static
-    iBankovniRacun[MAX_PLAYERS],     //!Dal igrac poseduje bankovni racun
+    iBankovniRacun[MAX_PLAYERS],     //!Dal igrac poseduje bankovni racun 
 	iNovac[MAX_PLAYERS],			 //!Novac igraca
 	iNovacuBanci[MAX_PLAYERS],		 //!Novac igraca u banci
     iKarticaPin[MAX_PLAYERS],    	 //!Pin kartice
@@ -217,89 +218,32 @@ Dialog: dialog_kartica(const playerid, response, listitem, string: inputtext[])
 	{
 		switch(listitem)
 		{
-			case 0:
+			case 0..2:
 			{
-				iKarticaPin[playerid] = ranpin;
-			 	iBankovniRacun[playerid] = 1;
-                iNovacuBanci[playerid] = 100;
-                ApplyAnimation(playerid, "DEALER", "shop_pay", 4.1, 0, 0, 0, 0, 0);
-				format(stringic, sizeof(stringic), "BANKA >> "c_white"Uspesno si otvorio racun u banci.\nTvoj pin od kartice je >> %i, zapamti ga dobro!", iKarticaPin[playerid]);
-                SendClientMessage(playerid, col_server, stringic);
+
+				iNovacuBanci[playerid] = 100;
 				SendClientMessage(playerid, col_server, "BANKA >> "c_white"Dobio si 100$ novcane pomoci od predsednika Los Santosa!");
-
-                new INI:File = INI_Open(Korisnici(playerid));
-                INI_SetTag( File, "data" );
-
-				INI_WriteInt(File, "BankovniRacun", iBankovniRacun[playerid]);
-				INI_WriteInt(File, "NovacuBanci", iNovacuBanci[playerid]);
-                INI_WriteInt(File, "Novac", GetPlayerMoney(playerid));
-                INI_WriteInt(File, "KarticaPin", iKarticaPin[playerid]);           
-
-                INI_Close( File );
-			}
-			case 1:
-			{
-				iKarticaPin[playerid] = ranpin;
-			 	iBankovniRacun[playerid] = 1;
-                iNovacuBanci[playerid] = 100;
-                ApplyAnimation(playerid, "DEALER", "shop_pay", 4.1, 0, 0, 0, 0, 0);
-				format(stringic, sizeof(stringic), "BANKA >> "c_white"Uspesno si otvorio racun u banci.\nTvoj pin od kartice je >> %i, zapamti ga dobro!", iKarticaPin[playerid]);
-                SendClientMessage(playerid, col_server, stringic);
-				SendClientMessage(playerid, col_server, "BANKA >> "c_white"Dobio si 100$ novcane pomoci od predsednika Los Santosa!");
-
-                new INI:File = INI_Open(Korisnici(playerid));
-                INI_SetTag( File, "data" );
-
-				INI_WriteInt(File, "BankovniRacun", iBankovniRacun[playerid]);
-				INI_WriteInt(File, "NovacuBanci", iNovacuBanci[playerid]);
-                INI_WriteInt(File, "Novac", GetPlayerMoney(playerid));
-                INI_WriteInt(File, "KarticaPin", iKarticaPin[playerid]);           
-
-                INI_Close( File );
-			}
-			case 2:
-			{
-				iKarticaPin[playerid] = ranpin;
-			 	iBankovniRacun[playerid] = 1;
-                iNovacuBanci[playerid] = 100;
-                ApplyAnimation(playerid, "DEALER", "shop_pay", 4.1, 0, 0, 0, 0, 0);
-				format(stringic, sizeof(stringic), "BANKA >> "c_white"Uspesno si otvorio racun u banci.\nTvoj pin od kartice je >> %i, zapamti ga dobro!", iKarticaPin[playerid]);
-                SendClientMessage(playerid, col_server, stringic);
-				SendClientMessage(playerid, col_server, "BANKA >> "c_white"Dobio si 100$ novcane pomoci od predsednika Los Santosa!");
-
-                new INI:File = INI_Open(Korisnici(playerid));
-                INI_SetTag( File, "data" );
-
-				INI_WriteInt(File, "BankovniRacun", iBankovniRacun[playerid]);
-				INI_WriteInt(File, "NovacuBanci", iNovacuBanci[playerid]);
-                INI_WriteInt(File, "Novac", GetPlayerMoney(playerid));
-                INI_WriteInt(File, "KarticaPin", iKarticaPin[playerid]);           
-
-                INI_Close( File );
 			}
 			case 3:
 			{
-				iKarticaPin[playerid] = ranpin;
-			 	iBankovniRacun[playerid] = 1;
-                iNovacuBanci[playerid] = 500;
-                ApplyAnimation(playerid, "DEALER", "shop_pay", 4.1, 0, 0, 0, 0, 0);
-				format(stringic, sizeof(stringic), "BANKA >> "c_white"Uspesno si otvorio racun u banci.\nTvoj pin od kartice je >> %i, zapamti ga dobro!", iKarticaPin[playerid]);
-                SendClientMessage(playerid, col_server, stringic);
+				iNovacuBanci[playerid] = 500;
 				SendClientMessage(playerid, col_server, "BANKA >> "c_white"Dobio si 500$ novcane pomoci kao nas premium korisnik!");
-
-                new INI:File = INI_Open(Korisnici(playerid));
-                INI_SetTag( File, "data" );
-
-				INI_WriteInt(File, "BankovniRacun", iBankovniRacun[playerid]);
-				INI_WriteInt(File, "NovacuBanci", iNovacuBanci[playerid]);
-                INI_WriteInt(File, "Novac", GetPlayerMoney(playerid));
-                INI_WriteInt(File, "KarticaPin", iKarticaPin[playerid]);           
-
-                INI_Close( File );
 			}
 		}
+		iKarticaPin[playerid] = ranpin;
+		iBankovniRacun[playerid] = 1;
+		ApplyAnimation(playerid, "DEALER", "shop_pay", 4.1, 0, 0, 0, 0, 0);
+		format(stringic, sizeof(stringic), "BANKA >> "c_white"Uspesno si otvorio racun u banci.\nTvoj pin od kartice je >> %i, zapamti ga dobro!", iKarticaPin[playerid]);
+		SendClientMessage(playerid, col_server, stringic);
+		new INI:File = INI_Open(Korisnici(playerid));
+		INI_SetTag( File, "data" );
+		INI_WriteInt(File, "BankovniRacun", iBankovniRacun[playerid]);
+		INI_WriteInt(File, "NovacuBanci", iNovacuBanci[playerid]);
+		INI_WriteInt(File, "Novac", GetPlayerMoney(playerid));
+		INI_WriteInt(File, "KarticaPin", iKarticaPin[playerid]);           
+		INI_Close( File );
 	}
-    return Y_HOOKS_CONTINUE_RETURN_1;
+	return 1;
 }
 
 //! Salter u banci komande
